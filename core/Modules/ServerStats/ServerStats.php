@@ -17,11 +17,11 @@ class ServerStats extends Module implements ModuleInterface
     public static function start(string $mode, bool $isBoot = false)
     {
         Hook::add('PlayerConnect', [self::class, 'onPlayerJoin']);
-        Hook::add('PlayerDisconnect' [self::class, 'onPlayerLeave']);
+        Hook::add('PlayerDisconnect', [self::class, 'onPlayerLeave']);
 
         Hook::add('BeginMap', [self::class, 'beginMap']);
 
-        DB::table('server-stats')->updateOrInsert([
+        DB::table('server-stats')->insert([
             'Title' => Server::getServerName(),
             'MaxPlayers' => Server::getMaxPlayers()['CurrentValue'],
             'CurrentPlayers' => count(Server::getPlayerList()),
