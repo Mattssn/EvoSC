@@ -19,18 +19,11 @@ class CreateServerStatsTable extends Migration
     public function up(Builder $schemaBuilder)
     {
         $schemaBuilder->create('server-stats', function (Blueprint $table) {
-            $table->string('Title')->default("PhenexTech");
+            $table->string('Title')->nullable();
             $table->integer('MaxPlayers')->default(0);
             $table->integer('CurrentPlayers')->default(0);
-            $table->string('CurrentMapName')->default("None");
+            $table->string('CurrentMapName')->nullable();
         });
-
-        DB::table('server-stats')insert([
-            'Title' => "PhenexTech",
-            'MaxPlayers' => "0",
-            'CurrentPlayers' => "0",
-            'CurrentMapName' => "None",
-        ]);
     }
 
     /**
