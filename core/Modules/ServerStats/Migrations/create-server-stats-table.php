@@ -5,6 +5,8 @@ namespace EvoSC\Migrations;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Schema\Builder;
+use EvoSC\Classes\DB;
+use EvoSC\Classes\Server;
 
 class CreateServerStatsTable extends Migration
 {
@@ -17,10 +19,10 @@ class CreateServerStatsTable extends Migration
     public function up(Builder $schemaBuilder)
     {
         $schemaBuilder->create('server-stats', function (Blueprint $table) {
-            $table->string('Title')->nullable();
+            $table->string('Title')->default("PhenexTech");
             $table->integer('MaxPlayers')->default(0);
             $table->integer('CurrentPlayers')->default(0);
-            $table->string('CurrentMapName')->nullable();
+            $table->string('CurrentMapName')->default("None");
         });
     }
 

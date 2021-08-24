@@ -6,7 +6,6 @@ use Carbon\Carbon;
 use Closure;
 use EvoSC\Classes\ChatCommand;
 use EvoSC\Classes\DB;
-use EvoSC\Classes\Server;
 use EvoSC\Classes\Hook;
 use EvoSC\Classes\Log;
 use EvoSC\Classes\Module;
@@ -50,11 +49,6 @@ class Statistics extends Module implements ModuleInterface
         Timer::create('update_playtimes', [self::class, 'updateConnectedPlayerPlaytimes'], '5s', true);
 
         ChatCommand::add('/rank', [self::class, 'showRank'], 'Show your current server rank.');
-
-        DB::table('server-stats')->updateOrInsert([
-            'Title' => Server::getServerName(),
-            'MaxPlayers' => Server::getMaxPlayers()['CurrentValue'],
-        ]);
     }
 
     public static function showScores(Collection $players)
@@ -234,10 +228,6 @@ WHERE 1=1;');
         self::showRank($player);
 
         DB::table('stats')->where('Player', '=', $player->id)->increment('Visits');
-
-        DB::table('server-stats')->updateOrInsert([
-            'CurrentPlayers' => count(Server::getPlayerList()),
-        ]);
     }
 
     /**
@@ -275,11 +265,6 @@ WHERE 1=1;');
     {
         $onlinePlayerIds = onlinePlayers()->pluck('id');
         Stats::whereIn('Player', $onlinePlayerIds)->increment('Playtime', 5);
-
-        DB::table('server-stats')->updateOrInsert([
-            'CurrentPlayers' => count(Server::getPlayerList()),
-            'CurrentMapName' => Server::getCurrentMapInfo()->name,
-        ]);
     }
 
     public static function encodeTask($task): string
