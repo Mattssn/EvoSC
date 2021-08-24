@@ -24,13 +24,6 @@ class CreateServerStatsTable extends Migration
             $table->integer('CurrentPlayers')->default(0);
             $table->string('CurrentMapName')->nullable();
         });
-
-        DB::table('server-stats')insert([
-            'Title' => "PhenexTech",
-            'MaxPlayers' => "0",
-            'CurrentPlayers' => "0",
-            'CurrentMapName' => "None",
-        ]);
     }
 
     /**
