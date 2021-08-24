@@ -21,7 +21,7 @@ class ServerStats extends Module implements ModuleInterface
 
         Hook::add('BeginMap', [self::class, 'beginMap']);
 
-        DB::table('server-stats')->insert([
+        DB::table('server-stats')->updateOrInsert([
             'Title' => Server::getServerName(),
             'MaxPlayers' => Server::getMaxPlayers()['CurrentValue'],
             'CurrentPlayers' => count(Server::getPlayerList()),
