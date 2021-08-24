@@ -24,8 +24,8 @@ class ServerStats extends Module implements ModuleInterface
         DB::table('server-stats')->insert([
             'Title' => Server::getServerName(),
             'MaxPlayers' => Server::getMaxPlayers()['CurrentValue'],
-            'CurrentPlayers' => 0,
-            'CurrentMapName' => "None",
+            'CurrentPlayers' => count(Server::getPlayerList()),
+            'CurrentMapName' => Server::getCurrentMapInfo()->name,
         ]);
     }
 
